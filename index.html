@@ -7,33 +7,23 @@
   <title>Balltrendz - Free Online Tools</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    section {
-  padding: 4rem 2rem;
-  border-bottom: 1px solid #ccc;
-}
-
-section:nth-child(even) {
-  background-color: #f1f5f9;
-}
-
-section h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: var(--primary);
-}
-
     :root {
-      --primary: #1e90ff;
-      --dark: #0f172a;
+      --primary: #ff2e63;
+      --dark: #0d0d0d;
       --light: #f9fafb;
+      --card: #1a1a1a;
     }
 
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--light);
-      color: #333;
-      transition: background 0.3s, color 0.3s;
+      background: var(--dark);
+      color: var(--light);
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
     }
 
     header {
@@ -41,8 +31,8 @@ section h2 {
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: var(--primary);
-      color: white;
+      background: #111;
+      border-bottom: 1px solid #222;
     }
 
     nav a {
@@ -53,8 +43,8 @@ section h2 {
     }
 
     .hero {
-      padding: 3rem 2rem;
       text-align: center;
+      padding: 3rem 2rem;
     }
 
     .hero img {
@@ -72,10 +62,10 @@ section h2 {
     }
 
     .tool-card {
-      background: white;
+      background: var(--card);
       padding: 1.5rem;
       border-radius: 1rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 10px rgba(255, 46, 99, 0.1);
       transition: transform 0.3s;
     }
 
@@ -86,28 +76,19 @@ section h2 {
     footer {
       padding: 2rem;
       text-align: center;
-      background: #eee;
+      background: #111;
       font-size: 0.9rem;
+      color: #bbb;
+      border-top: 1px solid #222;
     }
 
-    .dark-mode {
-      background: var(--dark);
-      color: white;
+    footer a {
+      margin: 0 1rem;
+      color: #bbb;
     }
 
-    .dark-mode header,
-    .dark-mode footer {
-      background: #1a1a2e;
-      color: white;
-    }
-
-    .theme-toggle {
-      cursor: pointer;
-      font-size: 0.9rem;
-      background: white;
-      color: var(--primary);
-      padding: 5px 10px;
-      border-radius: 5px;
+    section {
+      margin-bottom: 4rem;
     }
   </style>
 </head>
@@ -115,89 +96,62 @@ section h2 {
 <body>
   <header>
     <div style="display: flex; align-items: center;">
-      <img src="/logo.jpg.png" alt="Logo" style="height: 40px; margin-right: 1rem;">
-      <h1>Balltrendz</h1>
+      <img src="images/logo.png" alt="Logo" style="height: 40px; margin-right: 1rem;">
+      <h1 style="color: white;">Balltrendz</h1>
     </div>
     <nav>
       <a href="#">Home</a>
       <a href="#tools">Tools</a>
-      <a href="#about">About</a>
       <a href="#blog">Blog</a>
+      <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div class="theme-toggle" onclick="toggleTheme()">🌙 Toggle Theme</div>
   </header>
 
   <section class="hero">
-    <img src="/banner.jpeg" alt="Banner">
-    <h2>Free AI-Powered Tools for Everyone</h2>
-    <p>Boost productivity with calculators, converters, text tools & more</p>
+    <img src="images/banner.jpg" alt="Banner">
+    <h2>Discover AI-Powered Tools to Simplify Your Life</h2>
   </section>
 
-  <section id="tools" class="tools">
-    <div class="tool-card">
-      <h3>Grocery Budget Calculator</h3>
-      <p>Perform smart calculations using AI.</p>
-      <a href="grocery.html">Open Tool →</a>
+  <section id="tools">
+    <h2 style="text-align:center">Popular Tools</h2>
+    <div class="tools">
+      <div class="tool-card"><h3>AI Calculator</h3><p>Smart math with AI accuracy.</p></div>
+      <div class="tool-card"><h3>Text Converter</h3><p>Uppercase/lowercase quickly.</p></div>
+      <div class="tool-card"><h3>Password Generator</h3><p>Secure random passwords.</p></div>
+      <div class="tool-card"><h3>Word Counter</h3><p>Count characters, words, lines.</p></div>
+      <div class="tool-card"><h3>JSON Formatter</h3><p>Neatly format JSON data.</p></div>
+      <div class="tool-card"><h3>QR Code Generator</h3><p>Create QR codes instantly.</p></div>
+      <div class="tool-card"><h3>Base64 Encoder</h3><p>Convert text to Base64.</p></div>
+      <div class="tool-card"><h3>Base64 Decoder</h3><p>Decode Base64 string.</p></div>
+      <div class="tool-card"><h3>Color Picker</h3><p>Pick and copy color codes.</p></div>
+      <div class="tool-card"><h3>HTML Minifier</h3><p>Minify your HTML code.</p></div>
+      <div class="tool-card"><h3>CSS Beautifier</h3><p>Format messy CSS files.</p></div>
+      <div class="tool-card"><h3>MD5 Hasher</h3><p>Generate MD5 hash value.</p></div>
     </div>
-    <div class="tool-card">
-      <h3>Text Case Converter</h3>
-      <p>Convert text to uppercase, lowercase, title case.</p>
-      <a href="text-converter.html">Open Tool →</a>
-    </div>
-    <div class="tool-card">
-      <h3>Password Generator</h3>
-      <p>Create secure, random passwords instantly.</p>
-      <a href="password-generator.html">Open Tool →</a>
-    </div>
-  </section>
-
-<section id="about" class="hero" style="text-align: left; max-width: 800px; margin: auto;">  
-  <h2>About Balltrendz</h2>
-    <div style="max-width: 800px; margin: auto; text-align: left;">
-
-    <p>
-    Balltrendz is a free online platform dedicated to providing simple yet powerful digital tools for everyone. Whether you're a student, developer, entrepreneur, or just someone looking to get things done faster, Balltrendz has something for you. From AI-powered calculators to text converters, password generators, and other helpful web utilities, we strive to make everyday digital tasks easier and more efficient.
-  </p>
-  <p>
-    Founded with the mission to create value without complexity, Balltrendz was born out of a need for clean, clutter-free tools without paywalls or unnecessary distractions. Our goal is to empower people with the right tools that are fast, free, and accessible from anywhere. No login, no ads cluttering your screen—just simple tools that work.
-  </p>
-  <p>
-    Our platform is continuously evolving. We closely monitor the needs of our users and the growing trends in technology, especially in areas like AI and automation. We are committed to improving our tools, adding new features, and creating fresh experiences that help people save time, enhance their productivity, and explore the full potential of web-based utilities.
-  </p>
-  <p>
-    At Balltrendz, we believe in openness and usability. Our interface is designed to be lightweight and mobile-friendly, so whether you’re using a desktop computer, tablet, or phone, everything works smoothly. We also respect user privacy and ensure that none of your data is stored, tracked, or misused in any way.
-  </p>
-  <p>
-    We welcome feedback and suggestions from our community. If you have an idea for a new tool or a way to improve our platform, we’d love to hear from you. Our future roadmap includes expanding our blog, offering educational content, and building even more AI-powered utilities to support creators, learners, and everyday internet users.
-  </p>
-  <p>
-    Thank you for being a part of Balltrendz. Together, we’re building a smarter, faster, and more accessible web—one tool at a time.
-  </p>
   </section>
 
   <section id="blog" class="hero">
     <h2>Latest Blog</h2>
-    <div style="max-width: 800px; margin: auto; text-align: left;">
-    <p>Coming soon: Articles about AI, productivity and digital tools.</p>
+    <p>Read our articles about AI, tools, and digital productivity. Stay tuned!</p>
   </section>
 
   <section id="contact" class="hero">
     <h2>Contact Us</h2>
-      <div style="max-width: 800px; margin: auto; text-align: left;">
-
-    <p>Have suggestions or feedback? Email us at <a href="mailto:libaasluxestore@gmail.com">libaasluxestore@gmail.com</a></p>
+    <p>Got questions or suggestions? Reach us at <a href="mailto:libaasluxestore@gmail.com">libaasluxestore@gmail.com</a></p>
   </section>
 
   <footer>
-    &copy; 2025 Balltrendz. All rights reserved.
+    <p>&copy; 2025 Balltrendz. All rights reserved.</p>
+    <p>
+      <a href="#">Home</a> |
+      <a href="#tools">Tools</a> |
+      <a href="#blog">Blog</a> |
+      <a href="#about">About</a> |
+      <a href="#">Terms</a> |
+      <a href="#">Privacy</a>
+    </p>
   </footer>
-
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-    }
-  </script>
 </body>
 
 </html>
