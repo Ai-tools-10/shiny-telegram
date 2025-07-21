@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Budget Manager 🛒</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        input, button, select {
+            padding: 8px;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .list {
+            margin-top: 15px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .remove-btn {
+            margin-left: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 3px 6px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+  <!-- Bottom Banner Ad -->
+<div style="width: 100%; text-align: center; margin-top: 30px;">
+    <a href="https://otieu.com/4/9546445" target="_blank">
+        <img src="C:\Users\BIT\Downloads\Earn Online.png" 
+             alt="Earn Online" 
+             style="width: 100%; max-width: 900px; height: 130px; object-fit: cover; border-radius: 8px;">
+    </a>
+</div>
+    <h1>🛒 Grocery Budget Manager</h1>
+
+    <label>Select your currency:</label><br>
+    <select id="currency">
+        <option value="₨">Rupees (₨)</option>
+        <option value="$">Dollars ($)</option>
+        <option value="€">Euro (€)</option>
+        <option value="₹">Indian Rupee (₹)</option>
+    </select><br>
+
+    <label for="budget">Enter your budget:</label><br>
+    <input type="number" id="budget" placeholder="E.g., 3000"><br>
+    <button onclick="setBudget()">Set Budget</button>
+
+    <div id="budgetSetMsg"></div>
+
+    <hr>
+
+    <label for="item">Item name:</label><br>
+    <input type="text" id="item" placeholder="E.g., Milk / دودھ"><br>
+
+    <label for="price">Item price:</label><br>
+    <input type="number" id="price" placeholder="E.g., 250"><br>
+
+    <button onclick="addItem()">Add Item</button>
+
+    <div class="list" id="groceryList"></div>
+    <div id="totalDisplay"></div>
+
+    <script>
+        let budget = 0;
+        let total = 0;
+        let items = [];
+        let currencySymbol = "₨";
+
+        function setBudget() {
+            budget = parseFloat(document.getElementById('budget').value);
+            currencySymbol = document.getElementById('currency').value;
+
+            if (isNaN(budget) || budget <= 0) {
+                alert("Please enter a valid budget.");
+                return;
+            }
+
+            document.getElementById('budgetSetMsg').innerHTML = `<p class='success'>✅ Budget set to ${currencySymbol}${budget.toFixed(2)}</p>`;
+            displayList();
+        }
+
+        function addItem() {
+            const itemName = document.getElementById('item').value;
+            const itemPrice = parseFloat(document.getElementById('price').value);
+
+            if (!itemName || isNaN(itemPrice) || itemPrice <= 0) {
+                alert("Please enter a valid item name and price.");
+                return;
+            }
+
+            items.push({ name: itemName, price: itemPrice });
+            total += itemPrice;
+
+            document.getElementById('item').value = '';
+            document.getElementById('price').value = '';
+
+            displayList();
+        }
+
+        function removeItem(index) {
+            total -= items[index].price;
+            items.splice(index, 1);
+            displayList();
+        }
+
+        function displayList() {
+            let listHTML = "<h3>📝 Grocery List:</h3><ul>";
+            items.forEach((item, index) => {
+                listHTML += `<li>${item.name}: ${currencySymbol}${item.price.toFixed(2)} 
+                <button class='remove-btn' onclick='removeItem(${index})'>Remove</button></li>`;
+            });
+            listHTML += "</ul>";
+
+            let statusMessage = `<p>Total cost: ${currencySymbol}${total.toFixed(2)}</p>`;
+            if (budget > 0) {
+                if (total > budget) {
+                    statusMessage += `<p class='warning'>❌ Budget exceeded by ${currencySymbol}${(total - budget).toFixed(2)}!</p>`;
+                } else {
+                    statusMessage += `<p class='success'>✅ You're within budget. Remaining: ${currencySymbol}${(budget - total).toFixed(2)}</p>`;
+                }
+            }
+
+            document.getElementById('groceryList').innerHTML = listHTML;
+            document.getElementById('totalDisplay').innerHTML = statusMessage;
+        }
+    </script>
+  <!-- Bottom Banner Ad -->
+<div style="width: 100%; text-align: center; margin-top: 30px;">
+    <a href="https://otieu.com/4/9546445" target="_blank">
+        <img src="C:\Users\BIT\Downloads\Earn Online.png" 
+             alt="Earn Online" 
+             style="width: 100%; max-width: 900px; height: 130px; object-fit: cover; border-radius: 8px;">
+    </a>
+</div>
+
+</body>
+</html>
