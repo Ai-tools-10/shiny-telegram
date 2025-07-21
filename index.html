@@ -1,1468 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UtilityHub - Online Utility Tools</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
-        }
-        .tool-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .gradient-bg {
-            background: linear-gradient(135deg, #3b82f6 0%, #2dd4bf 100%);
-        }
-        .tool-icon {
-            height: 60px;
-            width: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-        }
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
-        .nav-link {
-            position: relative;
-        }
-        .nav-link.active {
-            color: #3b82f6;
-            font-weight: 500;
-        }
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: #3b82f6;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UtilityHub - Online Utility Tools</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+      color: #000;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 10px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    header .logo img {
+      height: 32px;
+      margin-right: 10px;
+    }
+
+    header nav a {
+      text-decoration: none;
+      color: #000;
+      margin-left: 25px;
+      font-weight: 500;
+    }
+
+    header nav a:hover {
+      color: #007bff;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #3ea6f1, #33d0a2);
+      padding: 60px 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+    }
+
+    .tools-section,
+    .subscribe-section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .tools-section h2 {
+      margin-bottom: 30px;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .tool-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .tool-card h3 {
+      margin: 10px 0;
+    }
+
+    .tool-card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .tool-card button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .subscribe-section {
+      background-color: #e9f1f6;
+    }
+
+    .subscribe-section input {
+      padding: 10px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-right: 10px;
+    }
+
+    .subscribe-section button {
+      padding: 10px 20px;
+      border: none;
+      background: #007bff;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: #1f2937;
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    footer .footer-col {
+      flex: 1 1 200px;
+      margin: 10px;
+    }
+
+    footer h4 {
+      margin-bottom: 10px;
+    }
+
+    footer a {
+      display: block;
+      text-decoration: none;
+      color: #ccc;
+      margin-bottom: 5px;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 20px;
+      color: #999;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="min-h-screen flex flex-col">
-        <!-- Navigation -->
-        <nav class="bg-white shadow-sm">
-            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <div class="h-10 w-10 rounded-lg gradient-bg flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                    </div>
-                    <span class="text-xl font-bold text-gray-800">UtilityHub</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#" class="nav-link active" data-page="home">Home</a>
-                    <a href="#" class="nav-link" data-page="about">About Us</a>
-                    <a href="#" class="nav-link" data-page="contact">Contact</a>
-                    <a href="#" class="nav-link" data-page="faq">FAQ</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="menu-toggle" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <div id="mobile-menu" class="hidden md:hidden px-4 py-2 bg-white">
-                <a href="#" class="block py-2" data-page="home">Home</a>
-                <a href="#" class="block py-2" data-page="about">About Us</a>
-                <a href="#" class="block py-2" data-page="contact">Contact</a>
-                <a href="#" class="block py-2" data-page="faq">FAQ</a>
-            </div>
-        </nav>
-
-        <!-- Main Content -->
-        <main class="flex-grow">
-            <!-- Home Page -->
-            <div id="home" class="page active">
-                <!-- Hero Section -->
-                <div class="gradient-bg py-16 md:py-24">
-                    <div class="container mx-auto px-4 text-center">
-                        <h1 class="text-3xl md:text-5xl font-bold text-white mb-4">Powerful Utility Tools at Your Fingertips</h1>
-                        <p class="text-lg md:text-xl text-white opacity-90 mb-8 max-w-3xl mx-auto">Simplify your daily tasks with our collection of free, easy-to-use online tools designed for everyone.</p>
-                        <button class="bg-white text-blue-600 font-medium px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition duration-300">Explore Tools</button>
-                    </div>
-                </div>
-
-                <!-- Tools Section -->
-                <div class="container mx-auto px-4 py-16">
-                    <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">Our Utility Tools</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Age Calculator -->
-                        <div class="tool-card bg-white p-6 rounded-xl shadow-md">
-                            <div class="tool-icon bg-blue-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-2">Age Calculator</h3>
-                            <p class="text-gray-600 mb-4">Calculate your exact age in years, months, and days with precision.</p>
-                            <button class="tool-btn w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" data-tool="age-calculator">Calculate Age</button>
-                        </div>
-
-                        <!-- Unit Converter -->
-                        <div class="tool-card bg-white p-6 rounded-xl shadow-md">
-                            <div class="tool-icon bg-green-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-2">Unit Converter</h3>
-                            <p class="text-gray-600 mb-4">Convert between different units of length, weight, temperature, and more.</p>
-                            <button class="tool-btn w-full py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition" data-tool="unit-converter">Convert Units</button>
-                        </div>
-
-                        <!-- Password Generator -->
-                        <div class="tool-card bg-white p-6 rounded-xl shadow-md">
-                            <div class="tool-icon bg-purple-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-2">Password Generator</h3>
-                            <p class="text-gray-600 mb-4">Create strong, secure passwords with customizable options.</p>
-                            <button class="tool-btn w-full py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition" data-tool="password-generator">Generate Password</button>
-                        </div>
-
-                        <!-- Random Name Generator -->
-                        <div class="tool-card bg-white p-6 rounded-xl shadow-md">
-                            <div class="tool-icon bg-yellow-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-2">Name Generator</h3>
-                            <p class="text-gray-600 mb-4">Generate random names for characters, projects, or businesses.</p>
-                            <button class="tool-btn w-full py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition" data-tool="name-generator">Generate Names</button>
-                        </div>
-
-                        <!-- Currency Converter -->
-                        <div class="tool-card bg-white p-6 rounded-xl shadow-md">
-                            <div class="tool-icon bg-red-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-2">Currency Converter</h3>
-                            <p class="text-gray-600 mb-4">Convert between different currencies with up-to-date exchange rates.</p>
-                            <button class="tool-btn w-full py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition" data-tool="currency-converter">Convert Currency</button>
-                        </div>
-
-                        <!-- File Format Converter -->
-                        <div class="tool-card bg-white p-6 rounded-xl shadow-md">
-                            <div class="tool-icon bg-indigo-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-2">File Converter</h3>
-                            <p class="text-gray-600 mb-4">Convert files between different formats (Demo version).</p>
-                            <button class="tool-btn w-full py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition" data-tool="file-converter">Convert Files</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Newsletter Section -->
-                <div class="bg-gray-100 py-16">
-                    <div class="container mx-auto px-4 max-w-3xl">
-                        <div class="bg-white p-8 rounded-xl shadow-md">
-                            <h3 class="text-2xl font-bold mb-2 text-center">Stay Updated</h3>
-                            <p class="text-gray-600 mb-6 text-center">Subscribe to our newsletter to get updates on new tools and features.</p>
-                            <div class="flex flex-col md:flex-row gap-4">
-                                <input type="email" placeholder="Enter your email" class="flex-grow px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Subscribe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tool Pages -->
-            <!-- Age Calculator Tool -->
-            <div id="age-calculator" class="page">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-3xl mx-auto">
-                        <div class="flex items-center mb-8">
-                            <button class="back-btn mr-4 p-2 rounded-full hover:bg-gray-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                            </button>
-                            <h2 class="text-2xl md:text-3xl font-bold">Age Calculator</h2>
-                        </div>
-                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
-                            <p class="text-gray-600 mb-6">Enter your date of birth to calculate your exact age in years, months, and days.</p>
-                            <div class="mb-6">
-                                <label for="birthdate" class="block text-gray-700 font-medium mb-2">Date of Birth</label>
-                                <input type="date" id="birthdate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-                            <button id="calculate-age" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Calculate Age</button>
-                            
-                            <div id="age-result" class="mt-8 hidden">
-                                <h3 class="text-xl font-semibold mb-4">Your Age</h3>
-                                <div class="grid grid-cols-3 gap-4">
-                                    <div class="bg-blue-50 p-4 rounded-lg text-center">
-                                        <span id="years" class="block text-3xl font-bold text-blue-600">0</span>
-                                        <span class="text-gray-600">Years</span>
-                                    </div>
-                                    <div class="bg-blue-50 p-4 rounded-lg text-center">
-                                        <span id="months" class="block text-3xl font-bold text-blue-600">0</span>
-                                        <span class="text-gray-600">Months</span>
-                                    </div>
-                                    <div class="bg-blue-50 p-4 rounded-lg text-center">
-                                        <span id="days" class="block text-3xl font-bold text-blue-600">0</span>
-                                        <span class="text-gray-600">Days</span>
-                                    </div>
-                                </div>
-                                <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-                                    <p id="age-description" class="text-gray-700"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Unit Converter Tool -->
-            <div id="unit-converter" class="page">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-3xl mx-auto">
-                        <div class="flex items-center mb-8">
-                            <button class="back-btn mr-4 p-2 rounded-full hover:bg-gray-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                            </button>
-                            <h2 class="text-2xl md:text-3xl font-bold">Unit Converter</h2>
-                        </div>
-                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
-                            <div class="mb-6">
-                                <label for="conversion-type" class="block text-gray-700 font-medium mb-2">Conversion Type</label>
-                                <select id="conversion-type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                                    <option value="length">Length</option>
-                                    <option value="weight">Weight</option>
-                                    <option value="temperature">Temperature</option>
-                                </select>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="from-unit" class="block text-gray-700 font-medium mb-2">From</label>
-                                    <select id="from-unit" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                                        <!-- Will be populated by JavaScript -->
-                                    </select>
-                                    <div class="mt-4">
-                                        <input type="number" id="from-value" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter value">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="to-unit" class="block text-gray-700 font-medium mb-2">To</label>
-                                    <select id="to-unit" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                                        <!-- Will be populated by JavaScript -->
-                                    </select>
-                                    <div class="mt-4 relative">
-                                        <input type="text" id="to-value" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <button id="convert-units" class="w-full mt-6 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">Convert</button>
-                            
-                            <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-                                <p class="text-gray-700 text-sm">This converter supports common units for length, weight, and temperature. For more specialized conversions, try our advanced tools.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Password Generator Tool -->
-            <div id="password-generator" class="page">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-3xl mx-auto">
-                        <div class="flex items-center mb-8">
-                            <button class="back-btn mr-4 p-2 rounded-full hover:bg-gray-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                            </button>
-                            <h2 class="text-2xl md:text-3xl font-bold">Password Generator</h2>
-                        </div>
-                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
-                            <p class="text-gray-600 mb-6">Generate strong, secure passwords with customizable options.</p>
-                            
-                            <div class="mb-6 relative">
-                                <label for="password" class="block text-gray-700 font-medium mb-2">Generated Password</label>
-                                <div class="flex">
-                                    <input type="text" id="password" class="w-full px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500" readonly>
-                                    <button id="copy-password" class="bg-gray-100 px-4 border-t border-r border-b border-gray-300 rounded-r-lg hover:bg-gray-200 transition">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-6">
-                                <label for="password-length" class="block text-gray-700 font-medium mb-2">Password Length: <span id="length-value">12</span></label>
-                                <input type="range" id="password-length" min="8" max="32" value="12" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                            </div>
-                            
-                            <div class="space-y-4 mb-6">
-                                <div class="flex items-center">
-                                    <input type="checkbox" id="uppercase" class="w-4 h-4 text-purple-600" checked>
-                                    <label for="uppercase" class="ml-2 text-gray-700">Include Uppercase Letters</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="checkbox" id="lowercase" class="w-4 h-4 text-purple-600" checked>
-                                    <label for="lowercase" class="ml-2 text-gray-700">Include Lowercase Letters</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="checkbox" id="numbers" class="w-4 h-4 text-purple-600" checked>
-                                    <label for="numbers" class="ml-2 text-gray-700">Include Numbers</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input type="checkbox" id="symbols" class="w-4 h-4 text-purple-600" checked>
-                                    <label for="symbols" class="ml-2 text-gray-700">Include Symbols</label>
-                                </div>
-                            </div>
-                            
-                            <button id="generate-password" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition">Generate Password</button>
-                            
-                            <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-                                <h4 class="font-medium mb-2">Password Strength</h4>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                    <div id="password-strength" class="bg-purple-600 h-2.5 rounded-full" style="width: 70%"></div>
-                                </div>
-                                <p id="strength-text" class="mt-2 text-sm text-gray-600">Strong password</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Name Generator Tool -->
-            <div id="name-generator" class="page">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-3xl mx-auto">
-                        <div class="flex items-center mb-8">
-                            <button class="back-btn mr-4 p-2 rounded-full hover:bg-gray-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                            </button>
-                            <h2 class="text-2xl md:text-3xl font-bold">Random Name Generator</h2>
-                        </div>
-                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
-                            <p class="text-gray-600 mb-6">Generate random names for characters, projects, or businesses.</p>
-                            
-                            <div class="mb-6">
-                                <label for="name-type" class="block text-gray-700 font-medium mb-2">Name Type</label>
-                                <select id="name-type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
-                                    <option value="person">Person Names</option>
-                                    <option value="business">Business Names</option>
-                                    <option value="fantasy">Fantasy Character Names</option>
-                                </select>
-                            </div>
-                            
-                            <div class="mb-6">
-                                <label for="name-count" class="block text-gray-700 font-medium mb-2">Number of Names</label>
-                                <select id="name-count" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
-                                    <option value="5">5 Names</option>
-                                    <option value="10" selected>10 Names</option>
-                                    <option value="15">15 Names</option>
-                                    <option value="20">20 Names</option>
-                                </select>
-                            </div>
-                            
-                            <button id="generate-names" class="w-full bg-yellow-600 text-white py-3 rounded-lg hover:bg-yellow-700 transition">Generate Names</button>
-                            
-                            <div id="names-result" class="mt-8 hidden">
-                                <h3 class="text-xl font-semibold mb-4">Generated Names</h3>
-                                <div id="names-list" class="bg-gray-50 p-4 rounded-lg space-y-2">
-                                    <!-- Names will be inserted here -->
-                                </div>
-                                <button id="copy-names" class="mt-4 w-full bg-gray-200 text-gray-800 py-2 rounded-lg hover:bg-gray-300 transition flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                    </svg>
-                                    Copy All Names
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Currency Converter Tool -->
-            <div id="currency-converter" class="page">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-3xl mx-auto">
-                        <div class="flex items-center mb-8">
-                            <button class="back-btn mr-4 p-2 rounded-full hover:bg-gray-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                            </button>
-                            <h2 class="text-2xl md:text-3xl font-bold">Currency Converter</h2>
-                        </div>
-                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
-                            <p class="text-gray-600 mb-6">Convert between different currencies with up-to-date exchange rates.</p>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label for="from-currency" class="block text-gray-700 font-medium mb-2">From Currency</label>
-                                    <select id="from-currency" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-                                        <option value="USD" selected>USD - US Dollar</option>
-                                        <option value="EUR">EUR - Euro</option>
-                                        <option value="GBP">GBP - British Pound</option>
-                                        <option value="JPY">JPY - Japanese Yen</option>
-                                        <option value="CAD">CAD - Canadian Dollar</option>
-                                        <option value="AUD">AUD - Australian Dollar</option>
-                                        <option value="CHF">CHF - Swiss Franc</option>
-                                        <option value="CNY">CNY - Chinese Yuan</option>
-                                        <option value="INR">INR - Indian Rupee</option>
-                                        <option value="BRL">BRL - Brazilian Real</option>
-                                    </select>
-                                    <div class="mt-4">
-                                        <input type="number" id="from-amount" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Enter amount" value="1">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="to-currency" class="block text-gray-700 font-medium mb-2">To Currency</label>
-                                    <select id="to-currency" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
-                                        <option value="USD">USD - US Dollar</option>
-                                        <option value="EUR" selected>EUR - Euro</option>
-                                        <option value="GBP">GBP - British Pound</option>
-                                        <option value="JPY">JPY - Japanese Yen</option>
-                                        <option value="CAD">CAD - Canadian Dollar</option>
-                                        <option value="AUD">AUD - Australian Dollar</option>
-                                        <option value="CHF">CHF - Swiss Franc</option>
-                                        <option value="CNY">CNY - Chinese Yuan</option>
-                                        <option value="INR">INR - Indian Rupee</option>
-                                        <option value="BRL">BRL - Brazilian Real</option>
-                                    </select>
-                                    <div class="mt-4 relative">
-                                        <input type="text" id="to-amount" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <button id="convert-currency" class="w-full mt-6 bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition">Convert Currency</button>
-                            
-                            <div id="exchange-rate-info" class="mt-6 p-4 bg-gray-50 rounded-lg hidden">
-                                <p class="text-gray-700">Exchange Rate: <span id="exchange-rate">1 USD = 0.85 EUR</span></p>
-                                <p class="text-gray-500 text-sm mt-2">Last updated: <span id="last-updated">June 15, 2023</span></p>
-                            </div>
-                            
-                            <div class="mt-6 p-4 bg-yellow-50 rounded-lg">
-                                <p class="text-yellow-800 text-sm flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span>This is a demo version with sample exchange rates. For actual rates, please check financial websites or apps.</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- File Converter Tool -->
-            <div id="file-converter" class="page">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-3xl mx-auto">
-                        <div class="flex items-center mb-8">
-                            <button class="back-btn mr-4 p-2 rounded-full hover:bg-gray-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                                </svg>
-                            </button>
-                            <h2 class="text-2xl md:text-3xl font-bold">File Converter</h2>
-                        </div>
-                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-md">
-                            <div class="text-center p-3 bg-yellow-50 rounded-lg mb-6">
-                                <p class="text-yellow-800 font-medium">DEMO VERSION</p>
-                                <p class="text-yellow-700 text-sm">This is a demonstration of the file converter interface.</p>
-                            </div>
-                            
-                            <div class="mb-6">
-                                <label for="conversion-format" class="block text-gray-700 font-medium mb-2">Conversion Format</label>
-                                <select id="conversion-format" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                    <option value="pdf-to-word">PDF to Word</option>
-                                    <option value="word-to-pdf">Word to PDF</option>
-                                    <option value="jpg-to-png">JPG to PNG</option>
-                                    <option value="png-to-jpg">PNG to JPG</option>
-                                    <option value="mp3-to-wav">MP3 to WAV</option>
-                                </select>
-                            </div>
-                            
-                            <div class="mb-6">
-                                <label class="block text-gray-700 font-medium mb-2">Upload File</label>
-                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-indigo-500 transition" id="drop-area">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                    </svg>
-                                    <p class="mt-2 text-gray-600">Drag & drop your file here or</p>
-                                    <button class="mt-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Browse Files</button>
-                                    <p class="mt-2 text-gray-500 text-sm">Maximum file size: 10MB</p>
-                                </div>
-                            </div>
-                            
-                            <button id="convert-file" class="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition opacity-50 cursor-not-allowed" disabled>Convert File</button>
-                            
-                            <div class="mt-6 p-4 bg-gray-50 rounded-lg">
-                                <h4 class="font-medium mb-2">Supported File Types</h4>
-                                <div class="grid grid-cols-2 gap-2 text-sm text-gray-600">
-                                    <div>• PDF documents</div>
-                                    <div>• Word documents</div>
-                                    <div>• JPG/JPEG images</div>
-                                    <div>• PNG images</div>
-                                    <div>• MP3 audio</div>
-                                    <div>• WAV audio</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- About Page -->
-            <div id="about" class="page">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-4xl mx-auto">
-                        <h2 class="text-3xl font-bold mb-8 text-center">About UtilityHub</h2>
-                        
-                        <div class="bg-white p-8 rounded-xl shadow-md mb-8">
-                            <h3 class="text-xl font-semibold mb-4">Our Mission</h3>
-                            <p class="text-gray-600 mb-6">UtilityHub was created with a simple mission: to provide free, easy-to-use online tools that make everyday tasks simpler and more efficient. We believe that powerful utilities should be accessible to everyone, regardless of technical expertise.</p>
-                            
-                            <h3 class="text-xl font-semibold mb-4">Our Tools</h3>
-                            <p class="text-gray-600 mb-6">We offer a growing collection of carefully designed tools to help with common needs:</p>
-                            <ul class="list-disc pl-5 text-gray-600 space-y-2 mb-6">
-                                <li>Age Calculator - Calculate your exact age in years, months, and days</li>
-                                <li>Unit Converter - Convert between different units of measurement</li>
-                                <li>Password Generator - Create strong, secure passwords</li>
-                                <li>Random Name Generator - Generate names for various purposes</li>
-                                <li>Currency Converter - Convert between different currencies</li>
-                                <li>File Converter - Convert files between different formats</li>
-                            </ul>
-                            
-                            <h3 class="text-xl font-semibold mb-4">Our Commitment</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div class="p-4 bg-blue-50 rounded-lg">
-                                    <div class="text-blue-600 mb-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                        </svg>
-                                    </div>
-                                    <h4 class="font-medium mb-1">Privacy & Security</h4>
-                                    <p class="text-sm text-gray-600">We don't store your data. All processing happens in your browser.</p>
-                                </div>
-                                <div class="p-4 bg-green-50 rounded-lg">
-                                    <div class="text-green-600 mb-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                    <h4 class="font-medium mb-1">Efficiency</h4>
-                                    <p class="text-sm text-gray-600">Our tools are designed to be fast, reliable, and easy to use.</p>
-                                </div>
-                                <div class="p-4 bg-purple-50 rounded-lg">
-                                    <div class="text-purple-600 mb-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                        </svg>
-                                    </div>
-                                    <h4 class="font-medium mb-1">Innovation</h4>
-                                    <p class="text-sm text-gray-600">We continuously improve our tools and add new ones based on user feedback.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-white p-8 rounded-xl shadow-md">
-                            <h3 class="text-xl font-semibold mb-4">Our Team</h3>
-                            <p class="text-gray-600 mb-6">UtilityHub was created by a small team of developers and designers passionate about creating useful tools that make life easier. We're constantly working to improve our existing tools and develop new ones based on user feedback.</p>
-                            
-                            <div class="flex justify-center">
-                                <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Join Our Team</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact Page -->
-            <div id="contact" class="page">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-4xl mx-auto">
-                        <h2 class="text-3xl font-bold mb-8 text-center">Contact Us</h2>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                            <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </div>
-                                <h3 class="text-lg font-semibold mb-2">Email Us</h3>
-                                <p class="text-gray-600">support@utilityhub.com</p>
-                            </div>
-                            
-                            <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-                                    </svg>
-                                </div>
-                                <h3 class="text-lg font-semibold mb-2">Live Chat</h3>
-                                <p class="text-gray-600">Available 9am-5pm EST</p>
-                            </div>
-                            
-                            <div class="bg-white p-6 rounded-xl shadow-md text-center">
-                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                                <h3 class="text-lg font-semibold mb-2">Help Center</h3>
-                                <p class="text-gray-600">Find answers to common questions</p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-white p-8 rounded-xl shadow-md">
-                            <h3 class="text-xl font-semibold mb-6">Send Us a Message</h3>
-                            
-                            <div class="text-center p-3 bg-yellow-50 rounded-lg mb-6">
-                                <p class="text-yellow-800 font-medium">DEMO FORM</p>
-                                <p class="text-yellow-700 text-sm">This is a demonstration contact form.</p>
-                            </div>
-                            
-                            <form>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                    <div>
-                                        <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
-                                        <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="John Doe">
-                                    </div>
-                                    <div>
-                                        <label for="email" class="block text-gray-700 font-medium mb-2">Your Email</label>
-                                        <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="john@example.com">
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
-                                    <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="How can we help?">
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
-                                    <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Your message here..."></textarea>
-                                </div>
-                                
-                                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Send Message</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ Page -->
-            <div id="faq" class="page">
-                <div class="container mx-auto px-4 py-12">
-                    <div class="max-w-4xl mx-auto">
-                        <h2 class="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
-                        
-                        <div class="bg-white p-8 rounded-xl shadow-md">
-                            <div class="space-y-6">
-                                <div class="border-b border-gray-200 pb-6">
-                                    <button class="faq-question w-full flex justify-between items-center text-left focus:outline-none">
-                                        <span class="text-lg font-medium">Are all the tools free to use?</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                    <div class="faq-answer mt-3 text-gray-600 hidden">
-                                        Yes, all the tools on UtilityHub are completely free to use. We believe in providing accessible utilities for everyone without any hidden costs or premium features.
-                                    </div>
-                                </div>
-                                
-                                <div class="border-b border-gray-200 pb-6">
-                                    <button class="faq-question w-full flex justify-between items-center text-left focus:outline-none">
-                                        <span class="text-lg font-medium">Is my data secure when using these tools?</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                    <div class="faq-answer mt-3 text-gray-600 hidden">
-                                        Absolutely. All our tools process data directly in your browser, and we don't store any of your information on our servers. Your privacy and data security are our top priorities.
-                                    </div>
-                                </div>
-                                
-                                <div class="border-b border-gray-200 pb-6">
-                                    <button class="faq-question w-full flex justify-between items-center text-left focus:outline-none">
-                                        <span class="text-lg font-medium">How accurate are the conversion tools?</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                    <div class="faq-answer mt-3 text-gray-600 hidden">
-                                        Our conversion tools use standard conversion rates and formulas to ensure high accuracy. For currency conversions, we update rates regularly, but please note that they should be used for informational purposes only.
-                                    </div>
-                                </div>
-                                
-                                <div class="border-b border-gray-200 pb-6">
-                                    <button class="faq-question w-full flex justify-between items-center text-left focus:outline-none">
-                                        <span class="text-lg font-medium">Can I use these tools on my mobile device?</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                    <div class="faq-answer mt-3 text-gray-600 hidden">
-                                        Yes, UtilityHub is fully responsive and works on all devices including smartphones and tablets. You can access and use all our tools on the go.
-                                    </div>
-                                </div>
-                                
-                                <div class="border-b border-gray-200 pb-6">
-                                    <button class="faq-question w-full flex justify-between items-center text-left focus:outline-none">
-                                        <span class="text-lg font-medium">How do I suggest a new tool?</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                    <div class="faq-answer mt-3 text-gray-600 hidden">
-                                        We love hearing from our users! You can suggest new tools or features through our Contact page. We regularly review user suggestions and implement the most requested tools.
-                                    </div>
-                                </div>
-                                
-                                <div class="border-b border-gray-200 pb-6">
-                                    <button class="faq-question w-full flex justify-between items-center text-left focus:outline-none">
-                                        <span class="text-lg font-medium">Do I need to create an account to use the tools?</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                    <div class="faq-answer mt-3 text-gray-600 hidden">
-                                        No, you don't need to create an account or sign up to use any of our tools. All utilities are available instantly without any registration requirements.
-                                    </div>
-                                </div>
-                                
-                                <div class="pb-2">
-                                    <button class="faq-question w-full flex justify-between items-center text-left focus:outline-none">
-                                        <span class="text-lg font-medium">Can I embed these tools on my website?</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="faq-icon h-5 w-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-                                    <div class="faq-answer mt-3 text-gray-600 hidden">
-                                        Currently, we don't offer embedding options for our tools. However, you're welcome to link to our website from your site. If you're interested in a partnership or custom integration, please contact us.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-12">
-            <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div>
-                        <div class="flex items-center space-x-2 mb-4">
-                            <div class="h-10 w-10 rounded-lg gradient-bg flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </div>
-                            <span class="text-xl font-bold">UtilityHub</span>
-                        </div>
-                        <p class="text-gray-400 mb-4">Simplify your daily tasks with our collection of free, easy-to-use online tools.</p>
-                        <div class="flex space-x-4">
-                            <a href="#" class="text-gray-400 hover:text-white transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                                </svg>
-                            </a>
-                            <a href="#" class="text-gray-400 hover:text-white transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
-                                </svg>
-                            </a>
-                            <a href="#" class="text-gray-400 hover:text-white transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-400 hover:text-white transition" data-page="home">Home</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition" data-page="about">About Us</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition" data-page="contact">Contact</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition" data-page="faq">FAQ</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 class="text-lg font-semibold mb-4">Our Tools</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-400 hover:text-white transition tool-link" data-tool="age-calculator">Age Calculator</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition tool-link" data-tool="unit-converter">Unit Converter</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition tool-link" data-tool="password-generator">Password Generator</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition tool-link" data-tool="name-generator">Name Generator</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition tool-link" data-tool="currency-converter">Currency Converter</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition tool-link" data-tool="file-converter">File Converter</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 class="text-lg font-semibold mb-4">Legal</h4>
-                        <ul class="space-y-2">
-                            <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition">Cookie Policy</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition">Disclaimer</a></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                    <p>&copy; 2023 UtilityHub. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="UtilityHub Logo" />
+      UtilityHub
     </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About Us</a>
+      <a href="#">Blog</a>
+      <a href="#">FAQ</a>
+    </nav>
+  </header>
 
-    <script>
-        // Navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            menuToggle.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
-            
-            // Page navigation
-            const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
-            const pages = document.querySelectorAll('.page');
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const pageId = this.getAttribute('data-page');
-                    
-                    // Update active nav link
-                    document.querySelectorAll('.nav-link').forEach(navLink => {
-                        navLink.classList.remove('active');
-                        if (navLink.getAttribute('data-page') === pageId) {
-                            navLink.classList.add('active');
-                        }
-                    });
-                    
-                    // Show selected page
-                    pages.forEach(page => {
-                        page.classList.remove('active');
-                    });
-                    document.getElementById(pageId).classList.add('active');
-                    
-                    // Hide mobile menu after click
-                    mobileMenu.classList.add('hidden');
-                    
-                    // Scroll to top
-                    window.scrollTo(0, 0);
-                });
-            });
-            
-            // Tool buttons
-            const toolButtons = document.querySelectorAll('.tool-btn, .tool-link');
-            
-            toolButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const toolId = this.getAttribute('data-tool');
-                    
-                    // Show selected tool page
-                    pages.forEach(page => {
-                        page.classList.remove('active');
-                    });
-                    document.getElementById(toolId).classList.add('active');
-                    
-                    // Update nav links (deactivate all)
-                    document.querySelectorAll('.nav-link').forEach(navLink => {
-                        navLink.classList.remove('active');
-                    });
-                    
-                    // Scroll to top
-                    window.scrollTo(0, 0);
-                });
-            });
-            
-            // Back buttons
-            const backButtons = document.querySelectorAll('.back-btn');
-            
-            backButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Show home page
-                    pages.forEach(page => {
-                        page.classList.remove('active');
-                    });
-                    document.getElementById('home').classList.add('active');
-                    
-                    // Update active nav link
-                    document.querySelectorAll('.nav-link').forEach(navLink => {
-                        navLink.classList.remove('active');
-                        if (navLink.getAttribute('data-page') === 'home') {
-                            navLink.classList.add('active');
-                        }
-                    });
-                    
-                    // Scroll to top
-                    window.scrollTo(0, 0);
-                });
-            });
-            
-            // FAQ toggles
-            const faqQuestions = document.querySelectorAll('.faq-question');
-            
-            faqQuestions.forEach(question => {
-                question.addEventListener('click', function() {
-                    const answer = this.nextElementSibling;
-                    const icon = this.querySelector('.faq-icon');
-                    
-                    answer.classList.toggle('hidden');
-                    icon.classList.toggle('rotate-180');
-                });
-            });
-            
-            // Age Calculator
-            const calculateAgeBtn = document.getElementById('calculate-age');
-            const birthdateInput = document.getElementById('birthdate');
-            const ageResult = document.getElementById('age-result');
-            const yearsSpan = document.getElementById('years');
-            const monthsSpan = document.getElementById('months');
-            const daysSpan = document.getElementById('days');
-            const ageDescription = document.getElementById('age-description');
-            
-            calculateAgeBtn.addEventListener('click', function() {
-                const birthdate = new Date(birthdateInput.value);
-                
-                if (isNaN(birthdate.getTime())) {
-                    alert('Please enter a valid date of birth');
-                    return;
-                }
-                
-                const today = new Date();
-                
-                if (birthdate > today) {
-                    alert('Date of birth cannot be in the future');
-                    return;
-                }
-                
-                let years = today.getFullYear() - birthdate.getFullYear();
-                let months = today.getMonth() - birthdate.getMonth();
-                let days = today.getDate() - birthdate.getDate();
-                
-                if (days < 0) {
-                    months--;
-                    const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-                    days += lastMonth.getDate();
-                }
-                
-                if (months < 0) {
-                    years--;
-                    months += 12;
-                }
-                
-                yearsSpan.textContent = years;
-                monthsSpan.textContent = months;
-                daysSpan.textContent = days;
-                
-                let description = `You are ${years} years, ${months} months, and ${days} days old.`;
-                
-                // Add some fun facts
-                if (years < 1) {
-                    description += ' You are still a baby!';
-                } else if (years < 13) {
-                    description += ' You are a child.';
-                } else if (years < 20) {
-                    description += ' You are a teenager.';
-                } else if (years < 30) {
-                    description += ' You are in your twenties.';
-                } else if (years < 40) {
-                    description += ' You are in your thirties.';
-                } else if (years < 50) {
-                    description += ' You are in your forties.';
-                } else if (years < 60) {
-                    description += ' You are in your fifties.';
-                } else if (years < 70) {
-                    description += ' You are in your sixties.';
-                } else if (years < 80) {
-                    description += ' You are in your seventies.';
-                } else if (years < 90) {
-                    description += ' You are in your eighties.';
-                } else if (years < 100) {
-                    description += ' You are in your nineties.';
-                } else {
-                    description += ' You are a centenarian! Congratulations!';
-                }
-                
-                ageDescription.textContent = description;
-                ageResult.classList.remove('hidden');
-            });
-            
-            // Unit Converter
-            const conversionType = document.getElementById('conversion-type');
-            const fromUnit = document.getElementById('from-unit');
-            const toUnit = document.getElementById('to-unit');
-            const fromValue = document.getElementById('from-value');
-            const toValue = document.getElementById('to-value');
-            const convertUnitsBtn = document.getElementById('convert-units');
-            
-            // Unit conversion data
-            const unitData = {
-                length: [
-                    { value: 'mm', label: 'Millimeters (mm)' },
-                    { value: 'cm', label: 'Centimeters (cm)' },
-                    { value: 'm', label: 'Meters (m)' },
-                    { value: 'km', label: 'Kilometers (km)' },
-                    { value: 'in', label: 'Inches (in)' },
-                    { value: 'ft', label: 'Feet (ft)' },
-                    { value: 'yd', label: 'Yards (yd)' },
-                    { value: 'mi', label: 'Miles (mi)' }
-                ],
-                weight: [
-                    { value: 'mg', label: 'Milligrams (mg)' },
-                    { value: 'g', label: 'Grams (g)' },
-                    { value: 'kg', label: 'Kilograms (kg)' },
-                    { value: 'oz', label: 'Ounces (oz)' },
-                    { value: 'lb', label: 'Pounds (lb)' },
-                    { value: 'st', label: 'Stone (st)' },
-                    { value: 't', label: 'Metric Tons (t)' }
-                ],
-                temperature: [
-                    { value: 'c', label: 'Celsius (°C)' },
-                    { value: 'f', label: 'Fahrenheit (°F)' },
-                    { value: 'k', label: 'Kelvin (K)' }
-                ]
-            };
-            
-            // Conversion factors (to base unit)
-            const conversionFactors = {
-                length: {
-                    mm: 0.001,
-                    cm: 0.01,
-                    m: 1,
-                    km: 1000,
-                    in: 0.0254,
-                    ft: 0.3048,
-                    yd: 0.9144,
-                    mi: 1609.344
-                },
-                weight: {
-                    mg: 0.000001,
-                    g: 0.001,
-                    kg: 1,
-                    oz: 0.02834952,
-                    lb: 0.45359237,
-                    st: 6.35029318,
-                    t: 1000
-                }
-            };
-            
-            // Populate unit dropdowns based on conversion type
-            function populateUnitDropdowns() {
-                const type = conversionType.value;
-                const units = unitData[type];
-                
-                // Clear existing options
-                fromUnit.innerHTML = '';
-                toUnit.innerHTML = '';
-                
-                // Add new options
-                units.forEach(unit => {
-                    const fromOption = document.createElement('option');
-                    fromOption.value = unit.value;
-                    fromOption.textContent = unit.label;
-                    fromUnit.appendChild(fromOption);
-                    
-                    const toOption = document.createElement('option');
-                    toOption.value = unit.value;
-                    toOption.textContent = unit.label;
-                    toUnit.appendChild(toOption);
-                });
-                
-                // Set default selections
-                if (type === 'length') {
-                    fromUnit.value = 'cm';
-                    toUnit.value = 'in';
-                } else if (type === 'weight') {
-                    fromUnit.value = 'kg';
-                    toUnit.value = 'lb';
-                } else if (type === 'temperature') {
-                    fromUnit.value = 'c';
-                    toUnit.value = 'f';
-                }
-            }
-            
-            // Convert units
-            function convertUnits() {
-                const type = conversionType.value;
-                const from = fromUnit.value;
-                const to = toUnit.value;
-                const value = parseFloat(fromValue.value);
-                
-                if (isNaN(value)) {
-                    alert('Please enter a valid number');
-                    return;
-                }
-                
-                let result;
-                
-                if (type === 'temperature') {
-                    // Temperature conversions are special cases
-                    if (from === 'c' && to === 'f') {
-                        result = (value * 9/5) + 32;
-                    } else if (from === 'c' && to === 'k') {
-                        result = value + 273.15;
-                    } else if (from === 'f' && to === 'c') {
-                        result = (value - 32) * 5/9;
-                    } else if (from === 'f' && to === 'k') {
-                        result = (value - 32) * 5/9 + 273.15;
-                    } else if (from === 'k' && to === 'c') {
-                        result = value - 273.15;
-                    } else if (from === 'k' && to === 'f') {
-                        result = (value - 273.15) * 9/5 + 32;
-                    } else {
-                        result = value; // Same unit
-                    }
-                } else {
-                    // For length and weight, convert to base unit then to target unit
-                    const baseValue = value * conversionFactors[type][from];
-                    result = baseValue / conversionFactors[type][to];
-                }
-                
-                // Format result based on magnitude
-                if (Math.abs(result) < 0.01) {
-                    toValue.value = result.toExponential(4);
-                } else {
-                    toValue.value = result.toFixed(4).replace(/\.?0+$/, '');
-                }
-            }
-            
-            conversionType.addEventListener('change', populateUnitDropdowns);
-            convertUnitsBtn.addEventListener('click', convertUnits);
-            
-            // Initialize unit dropdowns
-            populateUnitDropdowns();
-            
-            // Password Generator
-            const generatePasswordBtn = document.getElementById('generate-password');
-            const passwordOutput = document.getElementById('password');
-            const passwordLength = document.getElementById('password-length');
-            const lengthValue = document.getElementById('length-value');
-            const uppercaseCheckbox = document.getElementById('uppercase');
-            const lowercaseCheckbox = document.getElementById('lowercase');
-            const numbersCheckbox = document.getElementById('numbers');
-            const symbolsCheckbox = document.getElementById('symbols');
-            const copyPasswordBtn = document.getElementById('copy-password');
-            const passwordStrength = document.getElementById('password-strength');
-            const strengthText = document.getElementById('strength-text');
-            
-            // Update length value display
-            passwordLength.addEventListener('input', function() {
-                lengthValue.textContent = this.value;
-            });
-            
-            // Generate password
-            function generatePassword() {
-                const length = parseInt(passwordLength.value);
-                const useUppercase = uppercaseCheckbox.checked;
-                const useLowercase = lowercaseCheckbox.checked;
-                const useNumbers = numbersCheckbox.checked;
-                const useSymbols = symbolsCheckbox.checked;
-                
-                // Ensure at least one character type is selected
-                if (!useUppercase && !useLowercase && !useNumbers && !useSymbols) {
-                    alert('Please select at least one character type');
-                    return;
-                }
-                
-                const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
-                const numberChars = '0123456789';
-                const symbolChars = '!@#$%^&*()_-+=<>?';
-                
-                let availableChars = '';
-                if (useUppercase) availableChars += uppercaseChars;
-                if (useLowercase) availableChars += lowercaseChars;
-                if (useNumbers) availableChars += numberChars;
-                if (useSymbols) availableChars += symbolChars;
-                
-                let password = '';
-                let hasUppercase = false;
-                let hasLowercase = false;
-                let hasNumber = false;
-                let hasSymbol = false;
-                
-                // Generate random password
-                for (let i = 0; i < length; i++) {
-                    const randomIndex = Math.floor(Math.random() * availableChars.length);
-                    const char = availableChars[randomIndex];
-                    password += char;
-                    
-                    // Check character types
-                    if (uppercaseChars.includes(char)) hasUppercase = true;
-                    if (lowercaseChars.includes(char)) hasLowercase = true;
-                    if (numberChars.includes(char)) hasNumber = true;
-                    if (symbolChars.includes(char)) hasSymbol = true;
-                }
-                
-                // Ensure password contains at least one of each selected character type
-                if ((useUppercase && !hasUppercase) || 
-                    (useLowercase && !hasLowercase) || 
-                    (useNumbers && !hasNumber) || 
-                    (useSymbols && !hasSymbol)) {
-                    // If not, generate again
-                    return generatePassword();
-                }
-                
-                passwordOutput.value = password;
-                
-                // Calculate password strength
-                let strength = 0;
-                if (length >= 8) strength += 1;
-                if (length >= 12) strength += 1;
-                if (length >= 16) strength += 1;
-                if (hasUppercase) strength += 1;
-                if (hasLowercase) strength += 1;
-                if (hasNumber) strength += 1;
-                if (hasSymbol) strength += 1;
-                
-                // Update strength indicator
-                let strengthPercentage = (strength / 7) * 100;
-                passwordStrength.style.width = `${strengthPercentage}%`;
-                
-                if (strength <= 2) {
-                    passwordStrength.className = 'bg-red-600 h-2.5 rounded-full';
-                    strengthText.textContent = 'Weak password';
-                    strengthText.className = 'mt-2 text-sm text-red-600';
-                } else if (strength <= 4) {
-                    passwordStrength.className = 'bg-yellow-500 h-2.5 rounded-full';
-                    strengthText.textContent = 'Moderate password';
-                    strengthText.className = 'mt-2 text-sm text-yellow-600';
-                } else if (strength <= 6) {
-                    passwordStrength.className = 'bg-green-500 h-2.5 rounded-full';
-                    strengthText.textContent = 'Strong password';
-                    strengthText.className = 'mt-2 text-sm text-green-600';
-                } else {
-                    passwordStrength.className = 'bg-purple-600 h-2.5 rounded-full';
-                    strengthText.textContent = 'Very strong password';
-                    strengthText.className = 'mt-2 text-sm text-purple-600';
-                }
-            }
-            
-            // Copy password to clipboard
-            copyPasswordBtn.addEventListener('click', function() {
-                if (!passwordOutput.value) {
-                    alert('Generate a password first');
-                    return;
-                }
-                
-                passwordOutput.select();
-                document.execCommand('copy');
-                
-                // Show feedback
-                const originalText = this.innerHTML;
-                this.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                `;
-                
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                }, 1500);
-            });
-            
-            generatePasswordBtn.addEventListener('click', generatePassword);
-            
-            // Generate initial password
-            generatePassword();
-            
-            // Name Generator
-            const generateNamesBtn = document.getElementById('generate-names');
-            const nameType = document.getElementById('name-type');
-            const nameCount = document.getElementById('name-count');
-            const namesList = document.getElementById('names-list');
-            const namesResult = document.getElementById('names-result');
-            const copyNamesBtn = document.getElementById('copy-names');
-            
-            // Sample name data
-            const nameData = {
-                person: {
-                    first: ['James', 'John', 'Robert', 'Michael', 'William', 'David', 'Richard', 'Joseph', 'Thomas', 'Charles', 'Mary', 'Patricia', 'Jennifer', 'Linda', 'Elizabeth', 'Barbara', 'Susan', 'Jessica', 'Sarah', 'Karen'],
-                    last: ['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson', 'Thomas', 'Jackson', 'White', 'Harris', 'Martin', 'Thompson', 'Garcia', 'Martinez', 'Robinson']
-                },
-                business: {
-                    prefix: ['Alpha', 'Beta', 'Nova', 'Eco', 'Tech', 'Global', 'Smart', 'Bright', 'Prime', 'Elite', 'Peak', 'Vital', 'Rapid', 'Swift', 'Agile'],
-                    suffix: ['Solutions', 'Systems', 'Technologies', 'Innovations', 'Enterprises', 'Industries', 'Group', 'Partners', 'Ventures', 'Labs', 'Works', 'Co.', 'Inc.', 'LLC', 'Services']
-                },
-                fantasy: {
-                    first: ['Aerin', 'Bryn', 'Cael', 'Dorn', 'Elric', 'Faelan', 'Galen', 'Haldir', 'Ithil', 'Joreth', 'Kylar', 'Lyra', 'Maelis', 'Nyx', 'Orion', 'Phaedra', 'Quinlan', 'Riven', 'Sylvan', 'Thorne'],
-                    last: ['Blackwood', 'Cloudwalker', 'Dawnbringer', 'Emberforge', 'Frostweaver', 'Glimmershard', 'Highwind', 'Ironheart', 'Jadefire', 'Keenshadow', 'Lightbringer', 'Moonsong', 'Nightshade', 'Oakenshield', 'Phoenixfire']
-                }
-            };
-            
-            // Generate random names
-            function generateNames() {
-                const type = nameType.value;
-                const count = parseInt(nameCount.value);
-                
-                namesList.innerHTML = '';
-                const generatedNames = [];
-                
-                for (let i = 0; i < count; i++) {
-                    let name = '';
-                    
-                    if (type === 'person') {
-                        const firstName = nameData.person.first[Math.floor(Math.random() * nameData.person.first.length)];
-                        const lastName = nameData.person.last[Math.floor(Math.random() * nameData.person.last.length)];
-                        name = `${firstName} ${lastName}`;
-                    } else if (type === 'business') {
-                        const prefix = nameData.business.prefix[Math.floor(Math.random() * nameData.business.prefix.length)];
-                        const suffix = nameData.business.suffix[Math.floor(Math.random() * nameData.business.suffix.length)];
-                        name = `${prefix} ${suffix}`;
-                    } else if (type === 'fantasy') {
-                        const firstName = nameData.fantasy.first[Math.floor(Math.random() * nameData.fantasy.first.length)];
-                        const lastName = nameData.fantasy.last[Math.floor(Math.random() * nameData.fantasy.last.length)];
-                        name = `${firstName} ${lastName}`;
-                    }
-                    
-                    generatedNames.push(name);
-                    
-                    const nameElement = document.createElement('div');
-                    nameElement.className = 'p-2 bg-white rounded border border-gray-200';
-                    nameElement.textContent = name;
-                    namesList.appendChild(nameElement);
-                }
-                
-                namesResult.classList.remove('hidden');
-                
-                // Store generated names for copying
-                copyNamesBtn.setAttribute('data-names', generatedNames.join('\n'));
-            }
-            
-            // Copy names to clipboard
-            copyNamesBtn.addEventListener('click', function() {
-                const names = this.getAttribute('data-names');
-                
-                const textarea = document.createElement('textarea');
-                textarea.value = names;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                
-                // Show feedback
-                const originalText = this.innerHTML;
-                this.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    Copied!
-                `;
-                
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                }, 1500);
-            });
-            
-            generateNamesBtn.addEventListener('click', generateNames);
-            
-            // Currency Converter
-            const convertCurrencyBtn = document.getElementById('convert-currency');
-            const fromCurrency = document.getElementById('from-currency');
-            const toCurrency = document.getElementById('to-currency');
-            const fromAmount = document.getElementById('from-amount');
-            const toAmount = document.getElementById('to-amount');
-            const exchangeRateInfo = document.getElementById('exchange-rate-info');
-            const exchangeRateText = document.getElementById('exchange-rate');
-            const lastUpdatedText = document.getElementById('last-updated');
-            
-            // Sample exchange rates (relative to USD)
-            const exchangeRates = {
-                USD: 1,
-                EUR: 0.85,
-                GBP: 0.73,
-                JPY: 110.42,
-                CAD: 1.25,
-                AUD: 1.36,
-                CHF: 0.92,
-                CNY: 6.47,
-                INR: 74.38,
-                BRL: 5.24
-            };
-            
-            // Convert currency
-            function convertCurrency() {
-                const from = fromCurrency.value;
-                const to = toCurrency.value;
-                const amount = parseFloat(fromAmount.value);
-                
-                if (isNaN(amount)) {
-                    alert('Please enter a valid amount');
-                    return;
-                }
-                
-                // Convert to USD first, then to target currency
-                const amountInUSD = amount / exchangeRates[from];
-                const convertedAmount = amountInUSD * exchangeRates[to];
-                
-                toAmount.value = convertedAmount.toFixed(2);
-                
-                // Update exchange rate info
-                const rate = (exchangeRates[to] / exchangeRates[from]).toFixed(4);
-                exchangeRateText.textContent = `1 ${from} = ${rate} ${to}`;
-                
-                const today = new Date();
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                lastUpdatedText.textContent = today.toLocaleDateString(undefined, options);
-                
-                exchangeRateInfo.classList.remove('hidden');
-            }
-            
-            convertCurrencyBtn.addEventListener('click', convertCurrency);
-        });
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'962c46bb634c4b55',t:'MTc1MzExNzQ1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  <section class="hero">
+    <h1>Powerful Utility Tools at Your Fingertips</h1>
+    <p>Simplify your daily tasks with our collection of free, easy-to-use online tools designed for everyone.</p>
+    <button>Explore Tools</button>
+  </section>
+
+  <section class="tools-section">
+    <h2>Our Utility Tools</h2>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <h3>Age Calculator</h3>
+        <p>Calculate your exact age in years, months, and days.</p>
+        <button>Calculate Age</button>
+      </div>
+      <div class="tool-card">
+        <h3>Unit Converter</h3>
+        <p>Convert length, weight, temperature, and more.</p>
+        <button>Convert Units</button>
+      </div>
+      <div class="tool-card">
+        <h3>Password Generator</h3>
+        <p>Create strong, secure passwords instantly.</p>
+        <button>Generate Password</button>
+      </div>
+      <div class="tool-card">
+        <h3>Name Generator</h3>
+        <p>Generate unique names for projects and people.</p>
+        <button>Generate Names</button>
+      </div>
+      <div class="tool-card">
+        <h3>Currency Converter</h3>
+        <p>Convert between currencies with real-time rates.</p>
+        <button>Convert Currency</button>
+      </div>
+      <div class="tool-card">
+        <h3>File Converter</h3>
+        <p>Convert files between different formats.</p>
+        <button>Convert Files</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="subscribe-section">
+    <h2>Stay Updated</h2>
+    <p>Subscribe to our newsletter to get updates on new tools and features.</p>
+    <input type="email" placeholder="Enter your email" />
+    <button>Subscribe</button>
+  </section>
+
+  <footer>
+    <div class="footer-col">
+      <h4>UtilityHub</h4>
+      <p>Free, simple utility tools for your daily tasks.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#">Home</a>
+      <a href="#">About Us</a>
+      <a href="#">Blog</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Our Tools</h4>
+      <a href="#">Age Calculator</a>
+      <a href="#">Unit Converter</a>
+      <a href="#">Password Generator</a>
+      <a href="#">Currency Converter</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Policy</a>
+    </div>
+  </footer>
+  <div class="copyright">
+    &copy; 2025 UtilityHub. All rights reserved.
+  </div>
+</body>
+
 </html>
